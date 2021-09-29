@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"),
 module.exports = {
   entry: {
     js: "./src/index.js",
-    react: "./src/index_react.js",
-    ts: "./src/index_ts.js",
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -13,17 +11,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/i,
+        test: /\.js$/i,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
       },
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        use: "ts-loader",
-      },
+
       {
         test: /\.html$/i,
         use: [
@@ -35,7 +29,6 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        /* use: [MiniCssExtractPlugin.loader, "css-loader"], */
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -57,28 +50,14 @@ module.exports = {
     ],
   },
   plugins: [
-    /* new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html",
-    }), */
+    
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
       chunks: ["js"],
       hash: true,
     }),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "./react.html",
-      chunks: ["react"],
-      hash: true,
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "./ts.html",
-      chunks: ["ts"],
-      hash: true,
-    }),
+   
     new MiniCssExtractPlugin(),
   ],
 };
